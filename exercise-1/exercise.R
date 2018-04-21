@@ -7,7 +7,7 @@ library(jsonlite)
 library(dplyr)
 
 # Create a variable for the API's base URI (https://api.github.com)
-
+base_uri <- "https://api.github.com"
 
 # Under the "Repositories" category of the API, 
 # find the endpoint that will list repos in an organization. Then, 
@@ -15,15 +15,15 @@ library(dplyr)
 # organization repos (this is the PATH to the resource of interest).
 # (FYI: this is where we keep the book code and master exercise sets!)
 
-
+resource <- "/orgs/info201/repos"
 # Send a GET request to this endpoint (the `base_uri`` followed by `resource`)
+response <- GET(paste0(base_uri, resource))
 
-
-# Extract the "text" of the response usin the `content` function
-
+# Extract the "text" of the response using the `content` function
+data <- content(response, "text")
 
 # Convert the body from JSON into a data frame
-
+safe_data <- fromJSON(data)
 
 # How many (public) repositories does the organization have?
 
